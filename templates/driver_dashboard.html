@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <section class="h-100 gradient-form" style="background-color: #f4f7fc;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-8">
+                    <div class="card rounded-4 shadow-lg text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-12">
+                                <div class="card-body p-md-5 mx-md-4">
+                                    <div class="text-center mb-4">
+                                        <h4 class="mt-1 mb-3 pb-1 text-primary">Mirësevjen, {{ driver.name }}!</h4>
+                                        <p class="text-muted">Faqja jote e shoferit</p>
+                                    </div>
+
+                                    <!-- Earnings Section -->
+                                    <div id="earnings-section" style="display: none; margin-bottom: 30px;">
+                                        <div class="alert alert-success d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h5 class="mb-0">Fitimet: <strong>{{ earnings }} ALL</strong></h5>
+                                            </div>
+                                            <div class="badge bg-primary text-white px-3 py-1 rounded-pill">
+                                                <i class="bi bi-wallet2"></i> Wallet
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tasks Section -->
+                                    <div id="tasks-section" style="display: none;">
+                                        <h5 class="mb-3">Detyrat e tua</h5>
+                                        <ul class="list-group">
+                                            {% for task in tasks %}
+                                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 mb-3 shadow-sm">
+                                                    <div>
+                                                        <strong>{{ task.name }}</strong> - 
+                                                        <span class="badge 
+                                                            {% if task.status == 'Completed' %} bg-success {% endif %}
+                                                            {% if task.status == 'Pending' %} bg-warning {% endif %}
+                                                            {% if task.status == 'In Progress' %} bg-info {% endif %}">
+                                                            {{ task.status }}
+                                                        </span>
+                                                    </div>
+                                                    {% if task.status == 'Pending' %}
+                                                        <a href="{% url 'update_task_status' task.id %}" class="btn btn-sm btn-success text-white">Konfirmo si të përfunduar</a>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Check if the user is a driver, and show the hidden sections
+        {% if driver %}
+            document.getElementById("earnings-section").style.display = "block";
+            document.getElementById("tasks-section").style.display = "block";
+        {% endif %}
+    </script>
+{% endblock %}

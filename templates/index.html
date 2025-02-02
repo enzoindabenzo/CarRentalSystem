@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}AutoRent{% endblock title %}
+
+{% block body %}
+<div class="container" style="margin-bottom:25px; margin-top: 25px;">
+  <h1 class="my-3 text-center" style="font-size:50px; color:rgb(87, 8, 8)">AutoRent</h1>
+  <p style="text-align:center; margin-top:50px; font-size:25px; color:rgb(139, 21, 21)">
+    Gama e gjerë e makinave nga ato me përmasa të vogla deri te makinat luksoze është në dispozicion për qira. Disponueshmëria në çmime të përballueshme, prandaj çfarë po prisni? Vendosni rripin e sigurimit dhe përgatituni të shijoni udhëtimin me komoditet!
+  </p>
+  <p style="text-align:center; margin-top:50px; font-size:25px; color:rgb(139, 21, 21); font-style:italic">
+    “Botë është një libër dhe ata që nuk udhëtojnë lexojnë vetëm një faqe.” ~ Shën Augustine.
+  </p>
+</div>
+
+<hr style="height:2px; border-width:0; color:brown; background-color:brown; margin-top:35px;">
+
+<h3 style="text-align:center">Grafiku i Përdoruesve</h3>
+<div class="container">
+  <canvas id="userChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById('userChart').getContext('2d');
+  var userChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'],
+      datasets: [{
+        label: 'Numri i Përdoruesve',
+        data: [50, 60, 70, 80, 90, 100, 120, 130, 140, 150, 160, 170],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        fill: true
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<!-- Reviews Section -->
+<hr style="height:2px; border-width:0; color:brown; background-color:brown; margin-top:35px;">
+<h3 style="text-align:center; margin-top: 50px;">Çfarë thonë klientët tanë?</h3>
+<div class="container" style="margin-top: 40px;">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Elona B.</h5>
+          <p class="card-text">"Shërbimi ishte i shkëlqyer! Makina ishte në gjendje të shkëlqyer dhe udhëtimi im ishte shumë komod. Do të përdor AutoRent sërish!"</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Marko S.</h5>
+          <p class="card-text">"Përvoja ime me AutoRent ishte e shkëlqyer. Makina që mora ishte e re dhe e pastruar mirë. Disa nga çmimet më të mira në treg!"</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Adela H.</h5>
+          <p class="card-text">"Një kompani e besueshme dhe e shpejtë. Ata ishin gjithmonë në dispozicion për të ndihmuar. Udhëtimi më i mirë që kam pasur!"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

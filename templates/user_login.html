@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% block body %}
+
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  {% include 'messages.html' %}
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="{% static 'logo.jpg' %}" style="width: 150px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">AutoRent!</h4>
+                </div>
+
+                <form method="post" action="/signin/">
+                  {% csrf_token %}
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11">Username</label>
+                      <label for="loginusername"></label><input type="text" id="loginusername" name="loginusername" class="form-control" placeholder="Username" required>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example22">Password</label>
+                      <label for="loginpassword"></label><input type="password" id="loginpassword" name="loginpassword" class="form-control" required>
+                  </div>
+
+                  <!-- Driver Checkbox -->
+                  <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="is_driver" name="is_driver">
+                    <label class="form-check-label" for="is_driver">I am a driver</label>
+                  </div>
+
+                  <!-- Driver License Number (Hidden by default) -->
+                  <div class="form-outline mb-4" id="license_field" style="display: none;">
+                    <label class="form-label" for="license_number">License Number</label>
+                    <input type="text" id="license_number" name="license_number" class="form-control" placeholder="Enter your license number">
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Log in</button>
+                  </div>
+                </form>
+
+                <div class="d-flex align-items-center justify-content-center pb-4">
+                  <p class="mb-0 me-2">Don't have an account?</p>
+                  <a class="btn btn-outline-danger" href="/register" role="button">Create new</a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2"
+              style="background-image: url('{% static "login.jpg" %}'); background-repeat: no-repeat; background-size: cover;">
+              <div class="text-black px-3 py-4 p-md-5 mx-md-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Show/Hide license number field based on checkbox
+  document.getElementById('is_driver').addEventListener('change', function() {
+    const licenseField = document.getElementById('license_field');
+    if (this.checked) {
+      licenseField.style.display = 'block';
+    } else {
+      licenseField.style.display = 'none';
+    }
+  });
+</script>
+
+{% endblock %}

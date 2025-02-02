@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+{% block title %}Vehicles{% endblock title %}
+{%load static%}
+<link rel="stylesheet" href="{%static 'style.css'%}">
+{% block body %}
+<form method="post" action="\bill">
+  {% csrf_token %}
+<div class="container" id="yo">
+  
+  <div class="cols my-4">
+    <h2 style="text-align : center" class="head my-4">Detajet e rezervimit</h2>   
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Vendosni Emrin dhe Mbiemrin : </label>
+          <label for="billname"></label><input type="text" class="form-control" id="billname" name = "billname" placeholder="Full Name">
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="billemail">Vendosni adresen tuaj te Email : </label>
+          <input type="email" class="form-control" id="billemail" name = "billemail" placeholder="name@gmail.com">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="billphone">Vendosni numrin tuaj : </label>
+          <input type="tel" class="form-control" id="billphone" name = "billphone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">Adresa juaj</label>
+          <label for="billaddress"></label><label for="billaddress"></label><input type="text" class="form-control" id="billaddress" name = "billaddress" placeholder="COEP">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">Qyteti</label>
+          <input type="text" class="form-control" id="billcity" name="billcity">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">Kodi postar</label>
+          <input type="text" class="form-control" id="inputZip">
+        </div>
+      {% comment %} <p>Price : {{cars.price}}</p> {% endcomment %}
+      </div>  
+      <h2 style="text-align : center" class="head my-4">Te dhenat e makines</h2>
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="cars13">Zgjidh Makinen</label>
+          <select id="cars13" name = "cars13" class="form-control">
+            <option selected="selected" disabled>Choose...</option>
+            <option value = "Volvo Xc90">Volvo Xc90</option>
+            <option value = "BMW X5">BMW X5</option>
+            <option value = "Mercedes Benz C220">Mercedes Benz C220</option>
+            <option value = "Fiat Panda">Fiat Panda</option>
+            <option value = "Renault Clio">Renault Clio</option>
+            <option value = "Toyota Corrolla">Toyota Corrolla</option>
+            <option value = "Volkswagen Polo">Volkswagen Polo</option>
+            <option value = "Hyundai i20">Hyundai i20</option>
+            <option value = "Audi A6">Audi A6</option>
+            <option value="Mercedes Benz E350">Mercedes Benz E350</option>
+            <option value="Range Rover Velar">Range Rover Velar</option>
+            <option value="Porsche Cayenne">Porsche Cayenne</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-md-6" id="d11">
+          <label for="dayss">Kohezgjatja e qirase ne dite : </label>
+            <input type="number" class="form-control" id="dayss" name ="dayss" min=1 max = 30>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="date">Zgjidh daten e marrjes se mjetit : </label>
+          <input type="date" class="form-control" id="date" name="date">
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="fl">Pikenisja: </label>
+          <input type="text" class="form-control" id="fl" name="fl">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="tl">Destinacioni juaj : </label>
+          <input type="text" class="form-control" id="tl" name="tl">
+        </div> 
+      </div>   
+   
+  
+
+      <div class="cols1 my-4">
+        <h2 style="text-align : center">Fatura</h2>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center my-3" id="rentsec">
+            <p>
+               Vlera Totale eshte : ALL <span></span>
+            </p>
+         </li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <button class="btn btn-primary " type="button" data-toggle="modal" data-target="#exampleModalLong" id="showre" onclick="calculate()">Shfaq Faturen</button> 
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" id="13">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="14" style="height:750px">
+      <div class="modal-content" id="15" style="background-color:rgb(226, 239, 251); ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Fatura : </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="printThis"><h1 style="text-align:center; background: -webkit-linear-gradient(#77f7f1, #094240);-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;" > Ju faleminderit </h1><br>
+          <p id="n1" class="p2" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Emri :  <span></span></p>
+          <p style="text-align:center"><span id="l1" class="p3" style="text-align:center; font-size: 25px; font-weight:bold ; color:rgb(35, 12, 109)" >Nga :  <span ></span></span> &nbsp;&nbsp;&nbsp;--------->&nbsp;&nbsp;&nbsp;
+            <span id="l2" class="p3" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Ne :  <span ></span></span></p>
+            <p id="d2" class="p8" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Numri i diteve te qirase :  <span></span></p>
+            <p id="d1" class="p2" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Data e marrjes :  <span></span></p>
+        
+         <p style="text-align:center; font-size: 23px;">
+          <span style="font-size:30px;font-weight:bold">TE DHENAT E MAKINES :- </span><br><span style="font-weight:bold" id="crs1">Car : <span></span> </span><br></p>
+          <p id="total" class="p1" style="text-align:center; font-size: 25px; font-weight:bold" >VLERA TOTALE: ALL <span>N/A</span></p>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Mbyll</button>
+          <button type="button" class="btn btn-primary" id="btnPrint">Shkarko Faturen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary " type="submit"  >Konfirmo</button>
+    
+</div>
+</form>
+
+<script>
+
+function calculate() {
+    var select = document.getElementById("cars13");  // Corrected ID for car selection
+    var option = select.value;
+    var rent = 0;
+    
+    // Define rental prices based on the car selected
+    switch(option) {
+        case "Mercedes Benz C220":
+            rent = 5000;
+            break;
+        case "BMW X5":
+            rent = 7000;
+            break;
+        case "Volvo Xc90":
+            rent = 9000;
+            break;
+        case "Fiat Panda":
+            rent = 3000;
+            break;
+        case "Renault Clio":
+            rent = 3500;
+            break;
+        case "Toyota Corrolla":
+            rent = 4000;
+            break;
+        case "Volkswagen Polo":
+            rent = 3500;
+            break;
+        case "Hyundai i20":
+            rent = 2500;
+            break;
+        case "Audi A6":
+            rent = 7500;
+            break;
+        case "Mercedes Benz E63":
+            rent = 10000;
+            break;
+        case "Range Rover Velar":
+            rent = 12000;
+            break;
+        case "Porsche Cayenne":
+            rent = 13000;
+            break;
+        default:
+            rent = 0;
+    }
+    
+    var rent1 = parseInt(rent);
+    var d1 = document.getElementById('dayss');
+    var d3 = Number(d1.value);  // Get number of days
+    var total = rent1 * d3;  // Calculate total cost
+
+    // Update total rental cost in the UI
+    var num = document.getElementById('rentsec');
+    var num1 = num.querySelector("span");
+    num1.textContent = total;
+
+    // Update customer name in receipt
+    var name1 = document.getElementById("billname").value;
+    var name2 = document.getElementById("n1");
+    var name3 = name2.querySelector("span");
+    name3.innerHTML = name1;
+
+    // Update pickup and destination locations
+    var loc_frm1 = document.getElementById("fl").value;
+    var loc_frm2 = document.getElementById("l1");
+    var loc_frm3 = loc_frm2.querySelector("span");
+    loc_frm3.innerHTML = loc_frm1;
+
+    var loc_to1 = document.getElementById("tl").value;
+    var loc_to2 = document.getElementById("l2");
+    var loc_to3 = loc_to2.querySelector("span");
+    loc_to3.innerHTML = loc_to1;
+
+    // Update pickup date and days of rental
+    var da1 = document.getElementById("date").value;
+    var da2 = document.getElementById("d1");
+    var da3 = da2.querySelector("span");
+    da3.innerHTML = da1;
+
+    var dy1 = document.getElementById('d2');
+    var dy2 = dy1.querySelector("span");
+    dy2.innerHTML = d3;
+
+    // Update car details in the receipt
+    var carn1 = document.getElementById('crs1');
+    var carn2 = carn1.querySelector("span");
+    carn2.innerHTML = option;
+
+    // Update total amount in receipt
+    var tp = document.getElementById("printThis")
+    var tp1 = tp.querySelector(".p1");
+    var tp2 = tp1.querySelector("span");
+    tp2.innerHTML = total;
+}
+
+document.getElementById("btnPrint").onclick = function () {
+    printElement(document.getElementById("printThis"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
+</script>
+{% endblock body %}
