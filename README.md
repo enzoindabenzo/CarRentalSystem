@@ -56,8 +56,6 @@ Make sure you have the following installed:
    ```
 7. Open your browser and visit: `http://127.0.0.1:5000/` (Flask) or `http://127.0.0.1:8000/` (Django)
 
-## 📷 Screenshots
-_(Add images here to showcase UI/UX)_
 
 ## 🏆 Contributors
 - **enzoindabenzo** - Developer
